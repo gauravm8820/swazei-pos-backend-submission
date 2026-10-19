@@ -1,6 +1,34 @@
+# Dependencies & Builds
 node_modules/
 dist/
-.env
-*.log
+build/
 coverage/
+
+# Environment & Secrets (keep .env.example)
+.env
+.env.*
+!.env.example
+
+# Logs & Debugging
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System & OS Files
 .DS_Store
+Thumbs.db
+*.swp
+
+# IDE & Editors
+.idea/
+.vscode/
+
+# Docker Volumes & Databases
+pgdata/
+redis-data/
+postgres_data/
+*.sqlite
+
+# Archives
+*.zip

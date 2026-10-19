@@ -1,21 +1,39 @@
-# Environment & secrets
-.env
-*.env
-!.env.example
-
-# Node
+# Dependencies & Builds
 node_modules/
 dist/
+build/
+coverage/
+
+# Environment & Secrets (keep .env.example)
+.env
+.env.*
+!.env.example
+
+# Logs & Debugging
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# OS
+# System & OS Files
 .DS_Store
 Thumbs.db
+*.swp
 
-# Logs & coverage
-*.log
-coverage/
+# IDE & Editors
 .idea/
 .vscode/
+
+# Docker Volumes & Databases
+pgdata/
+redis-data/
+postgres_data/
+*.sqlite
+
+# Archives & Confidential Assignment
+*.zip
+assignment.pdf
+
+# Agent / Tooling Artefacts
+.gemini/
+email-template.html
