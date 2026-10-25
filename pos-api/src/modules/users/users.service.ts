@@ -87,6 +87,10 @@ export class UsersService {
     return this.usersRepo.findByRole(UserRole.SUPER_ADMIN);
   }
 
+  async updateSuperAdminPassword(id: string, passwordHash: string): Promise<void> {
+    await this.usersRepo.updatePassword(id, passwordHash);
+  }
+
   async createSuperAdmin(email: string, passwordHash: string) {
     const existing = await this.usersRepo.findByEmail(email);
     if (existing) throw new ConflictException('Email already in use');

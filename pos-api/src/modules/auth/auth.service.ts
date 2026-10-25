@@ -72,14 +72,16 @@ export class AuthService {
 
   async setupSuperAdmin(dto: { email: string; password: string; fullName: string }) {
     const existingAdmins = await this.usersService.findSuperAdmins();
-    if (existingAdmins.length > 0) {
-      throw new UnauthorizedException(
-        'Platform Super Admin already configured. Please log in directly via POST /auth/login.',
-      );
-    }
+    let superAdmin = existingAdmins.length > 0 ? existingAdmins[0] : null;
 
-    const passwordHash = await bcrypt.hash(dto.password, 10);
-    const superAdmin = await this.usersService.createSuperAdmin(dto.email, passwordHash);
+    if (superAdmin) {
+      // Idempotently update password if Super Admin already initialized
+      const passwordHash = await bcrypt.hash(dto.password, 10);
+      await this.usersService.updateSuperAdminPassword(superAdmin.id, passwordHash);
+    } else {
+      const passwordHash = await bcrypt.hash(dto.password, 10);
+      superAdmin = await this.usersService.createSuperAdmin(dto.email, passwordHash);
+    }
 
     const payload: JwtPayload = {
       sub: superAdmin.id,

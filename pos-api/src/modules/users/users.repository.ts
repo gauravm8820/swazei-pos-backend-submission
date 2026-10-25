@@ -55,4 +55,8 @@ export class UsersRepository {
   async findByRole(role: UserRole): Promise<User[]> {
     return this.repo.find({ where: { role, deletedAt: IsNull() } });
   }
+
+  async updatePassword(id: string, passwordHash: string): Promise<void> {
+    await this.repo.update(id, { passwordHash });
+  }
 }
