@@ -4,6 +4,7 @@ import { ROLES_KEY } from '../decorators/roles.decorator';
 import { UserRole, JwtPayload } from '../types/jwt-payload.type';
 
 const ROLE_HIERARCHY: Record<UserRole, number> = {
+  [UserRole.SUPER_ADMIN]: 5,
   [UserRole.OWNER]: 4,
   [UserRole.ADMIN]: 3,
   [UserRole.MANAGER]: 2,

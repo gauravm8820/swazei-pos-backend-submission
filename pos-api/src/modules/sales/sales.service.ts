@@ -3,6 +3,7 @@ import {
   Inject,
   UnprocessableEntityException,
   NotFoundException,
+  ForbiddenException,
   Logger,
   HttpException,
   HttpStatus,
@@ -31,10 +32,15 @@ export class SalesService {
   ) {}
 
   async createSale(dto: CreateSaleDto, user: JwtPayload, storeId: string): Promise<Sale> {
+    if (!user.merchantId) {
+      throw new ForbiddenException('Merchant context required for sales operations');
+    }
+    const merchantId = user.merchantId;
+
     // ── STEP 1: Validate products exist in this merchant's catalog ─────────
     const productIds = dto.items.map((i) => i.productId);
 
-    const products = await this.productsRepo.findByIds(productIds, user.merchantId);
+    const products = await this.productsRepo.findByIds(productIds, merchantId);
     if (products.length !== productIds.length) {
       const foundIds = new Set(products.map((p) => p.id));
       const missing = productIds.filter((id) => !foundIds.has(id));

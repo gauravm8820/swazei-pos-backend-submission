@@ -37,3 +37,4 @@ assignment.pdf
 # Agent / Tooling Artefacts
 .gemini/
 email-template.html
+.postman/

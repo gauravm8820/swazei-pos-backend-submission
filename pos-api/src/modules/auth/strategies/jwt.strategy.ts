@@ -15,8 +15,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayload): Promise<JwtPayload> {
-    if (!payload.sub || !payload.merchantId) {
-      throw new UnauthorizedException('Invalid token');
+    if (!payload.sub) {
+      throw new UnauthorizedException('Invalid token: missing subject');
+    }
+    if (payload.role !== 'SUPER_ADMIN' && !payload.merchantId) {
+      throw new UnauthorizedException('Invalid token: missing merchant context');
     }
     return payload;
   }

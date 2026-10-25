@@ -12,6 +12,13 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Public()
+  @Post('super-admin/setup')
+  @ApiOperation({ summary: 'One-time setup for SaaS platform super admin' })
+  async setupSuperAdmin(@Body() dto: any) {
+    return { data: await this.authService.setupSuperAdmin(dto) };
+  }
+
+  @Public()
   @Post('login')
   @ApiOperation({ summary: 'Login and receive JWT tokens' })
   async login(@Body() dto: LoginDto) {

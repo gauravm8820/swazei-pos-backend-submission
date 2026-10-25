@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IsNull, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
+import { UserRole } from '../../common/types/jwt-payload.type';
 
 @Injectable()
 export class UsersRepository {
@@ -45,5 +46,13 @@ export class UsersRepository {
   async update(id: string, merchantId: string, data: Partial<User>): Promise<User | null> {
     await this.repo.update({ id, merchantId }, data as any);
     return this.findByIdAndMerchant(id, merchantId);
+  }
+
+  async countByMerchant(merchantId: string): Promise<number> {
+    return this.repo.count({ where: { merchantId, deletedAt: IsNull() } });
+  }
+
+  async findByRole(role: UserRole): Promise<User[]> {
+    return this.repo.find({ where: { role, deletedAt: IsNull() } });
   }
 }

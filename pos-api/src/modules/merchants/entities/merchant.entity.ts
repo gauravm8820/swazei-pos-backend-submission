@@ -9,6 +9,7 @@ import {
 import { Store } from '../../stores/entities/store.entity';
 import { User } from '../../users/entities/user.entity';
 import { Product } from '../../products/entities/product.entity';
+import { MerchantSubscription } from '../../subscriptions/entities/merchant-subscription.entity';
 
 @Entity('merchants')
 export class Merchant {
@@ -38,4 +39,7 @@ export class Merchant {
 
   @OneToMany(() => Product, (product) => product.merchant)
   products: Product[];
+
+  @OneToMany(() => MerchantSubscription, (sub) => sub.merchant)
+  subscriptions: MerchantSubscription[];
 }

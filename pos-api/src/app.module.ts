@@ -22,6 +22,8 @@ import { SalesModule } from './modules/sales/sales.module';
 import { IdempotencyModule } from './modules/idempotency/idempotency.module';
 import { HealthModule } from './modules/health/health.module';
 
+import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
+
 // All entities
 import { Merchant } from './modules/merchants/entities/merchant.entity';
 import { Store } from './modules/stores/entities/store.entity';
@@ -32,6 +34,8 @@ import { Sale } from './modules/sales/entities/sale.entity';
 import { SaleItem } from './modules/sales/entities/sale-item.entity';
 import { Payment } from './modules/sales/entities/payment.entity';
 import { IdempotencyKey } from './modules/idempotency/entities/idempotency-key.entity';
+import { SubscriptionPlan } from './modules/subscriptions/entities/subscription-plan.entity';
+import { MerchantSubscription } from './modules/subscriptions/entities/merchant-subscription.entity';
 
 @Module({
   imports: [
@@ -57,6 +61,7 @@ import { IdempotencyKey } from './modules/idempotency/entities/idempotency-key.e
           entities: [
             Merchant, Store, User, Product, StoreInventory,
             Sale, SaleItem, Payment, IdempotencyKey,
+            SubscriptionPlan, MerchantSubscription,
           ],
           migrations: [__dirname + '/database/migrations/*.{ts,js}'],
           synchronize: false,
@@ -85,6 +90,7 @@ import { IdempotencyKey } from './modules/idempotency/entities/idempotency-key.e
     ScheduleModule.forRoot(),
 
     AuthModule,
+    SubscriptionsModule,
     MerchantsModule,
     StoresModule,
     UsersModule,

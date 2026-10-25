@@ -31,8 +31,55 @@ export const SEED_CONSTANTS = {
     address: '50 Park Avenue, Mumbai',
   },
 
+  // Subscription Plans
+  PLANS: {
+    STARTER: {
+      id: '33333333-3333-4000-8000-000000000001',
+      name: 'Starter Plan',
+      slug: 'starter',
+      description: 'Perfect for single boutique store or kiosk',
+      priceMinorUnits: 99900, // ₹999.00
+      currency: 'INR',
+      durationMonths: 1,
+      maxStores: 1,
+      maxUsers: 3,
+      features: ['Basic POS', '1 Store', 'Up to 3 Cashiers/Managers', 'Daily Reports'],
+    },
+    GROWTH: {
+      id: '33333333-3333-4000-8000-000000000002',
+      name: 'Growth Plan',
+      slug: 'growth',
+      description: 'Ideal for expanding retail businesses with multiple locations',
+      priceMinorUnits: 499900, // ₹4,999.00
+      currency: 'INR',
+      durationMonths: 6,
+      maxStores: 5,
+      maxUsers: 20,
+      features: ['Multi-Store POS', 'Up to 5 Stores', 'Up to 20 Users', 'Inventory Sync', 'Advanced Analytics'],
+    },
+    ENTERPRISE: {
+      id: '33333333-3333-4000-8000-000000000003',
+      name: 'Enterprise Plan',
+      slug: 'enterprise',
+      description: 'For large franchises with limitless scaling needs',
+      priceMinorUnits: 1999900, // ₹19,999.00
+      currency: 'INR',
+      durationMonths: 12,
+      maxStores: 50,
+      maxUsers: 200,
+      features: ['Unlimited Scale', 'Up to 50 Stores', 'Up to 200 Users', 'Priority 24/7 Support', 'Dedicated Account Manager'],
+    },
+  },
+
   // Users
   USERS: {
+    SUPER_ADMIN: {
+      id: '00000000-0000-4000-8000-000000000001',
+      email: 'superadmin@posplatform.com',
+      merchantId: null,
+      storeId: null,
+      role: 'SUPER_ADMIN',
+    },
     OWNER_A: {
       id: '11111111-1111-4000-8000-000000000021',
       email: 'owner-a@merchant.com',

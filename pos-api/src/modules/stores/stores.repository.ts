@@ -23,6 +23,10 @@ export class StoresRepository {
     return this.repo.findOne({ where: { id, merchantId } });
   }
 
+  async findById(id: string): Promise<Store | null> {
+    return this.repo.findOne({ where: { id } });
+  }
+
   async update(id: string, merchantId: string, data: Partial<Store>): Promise<Store | null> {
     await this.repo.update({ id, merchantId }, data as any);
     return this.findOne(id, merchantId);

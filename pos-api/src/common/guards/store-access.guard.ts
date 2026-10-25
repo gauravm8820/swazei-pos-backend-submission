@@ -28,6 +28,9 @@ export class StoreAccessGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const user: JwtPayload = request.user;
 
+    // SUPER_ADMIN has global access across all merchants and stores
+    if (user?.role === UserRole.SUPER_ADMIN) return true;
+
     // OWNER and ADMIN can access any store within their merchant
     // MANAGER and CASHIER can only access their own store
     const storeId = request.params?.storeId;
@@ -42,7 +45,7 @@ export class StoreAccessGuard implements CanActivate {
 
     if (cached !== null && cached !== undefined) {
       storeExists = cached.exists;
-      storeMerchantId = cached.exists ? user.merchantId : undefined;
+      storeMerchantId = cached.exists ? (user.merchantId ?? undefined) : undefined;
     } else {
       const store = await this.storeRepo.findOne({
         where: { id: storeId },

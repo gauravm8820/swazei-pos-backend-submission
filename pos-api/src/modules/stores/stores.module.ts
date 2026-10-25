@@ -5,8 +5,10 @@ import { StoresController } from './stores.controller';
 import { StoresService } from './stores.service';
 import { StoresRepository } from './stores.repository';
 
+import { SubscriptionsModule } from '../subscriptions/subscriptions.module';
+
 @Module({
-  imports: [TypeOrmModule.forFeature([Store])],
+  imports: [TypeOrmModule.forFeature([Store]), SubscriptionsModule],
   controllers: [StoresController],
   providers: [StoresService, StoresRepository],
   exports: [StoresService, StoresRepository, TypeOrmModule],

@@ -34,7 +34,8 @@ export class TestHelper {
     // Truncate all tables in proper order
     await this.dataSource.query(`
       TRUNCATE TABLE "idempotency_keys", "payments", "sale_items", "sales",
-                     "store_inventory", "products", "users", "stores", "merchants"
+                     "store_inventory", "products", "users", "stores",
+                     "merchant_subscriptions", "merchants", "subscription_plans"
       CASCADE;
     `);
     // Re-seed with deterministic fixtures

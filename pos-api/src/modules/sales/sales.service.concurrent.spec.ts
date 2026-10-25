@@ -39,7 +39,8 @@ describe('Concurrent Sales & Stock Race Condition (BONUS Concurrency Test)', () 
     // Reset database and seed initial state (Product A1 has quantity = 5 in Store 1)
     await dataSource.query(`
       TRUNCATE TABLE "idempotency_keys", "payments", "sale_items", "sales",
-                     "store_inventory", "products", "users", "stores", "merchants"
+                     "store_inventory", "products", "users", "stores",
+                     "merchant_subscriptions", "merchants", "subscription_plans"
       CASCADE;
     `);
     await runSeed(dataSource);

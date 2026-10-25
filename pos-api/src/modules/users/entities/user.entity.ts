@@ -17,8 +17,8 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'uuid' })
-  merchantId: string;
+  @Column({ type: 'uuid', nullable: true })
+  merchantId: string | null;
 
   @Column({ type: 'uuid', nullable: true })
   storeId: string | null;
@@ -44,9 +44,9 @@ export class User {
   @DeleteDateColumn({ type: 'timestamptz', nullable: true })
   deletedAt: Date | null;
 
-  @ManyToOne(() => Merchant, (m) => m.users)
+  @ManyToOne(() => Merchant, (m) => m.users, { nullable: true })
   @JoinColumn({ name: 'merchantId' })
-  merchant: Merchant;
+  merchant: Merchant | null;
 
   @ManyToOne(() => Store, (s) => s.users, { nullable: true })
   @JoinColumn({ name: 'storeId' })
