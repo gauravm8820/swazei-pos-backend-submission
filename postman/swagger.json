@@ -1,0 +1,1335 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/v1/auth/super-admin/setup": {
+      "post": {
+        "operationId": "AuthController_setupSuperAdmin",
+        "summary": "One-time setup for SaaS platform super admin",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "summary": "Login and receive JWT tokens",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/refresh": {
+      "post": {
+        "operationId": "AuthController_refresh",
+        "summary": "Refresh access token",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/me": {
+      "get": {
+        "operationId": "AuthController_me",
+        "summary": "Get current user profile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users": {
+      "post": {
+        "operationId": "UsersController_create",
+        "summary": "Create a user within the merchant",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "UsersController_findAll",
+        "summary": "List all users for the merchant",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/{userId}": {
+      "get": {
+        "operationId": "UsersController_findOne",
+        "summary": "Get a user by ID",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "UsersController_remove",
+        "summary": "Soft-delete a user",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/subscriptions/plans": {
+      "post": {
+        "operationId": "SubscriptionsController_createPlan",
+        "summary": "Create a new subscription plan (Super Admin only)",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePlanDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "SubscriptionsController_findAllPlans",
+        "summary": "List all subscription plans (Public catalog)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ]
+      }
+    },
+    "/api/v1/subscriptions/plans/{id}": {
+      "get": {
+        "operationId": "SubscriptionsController_findPlanById",
+        "summary": "Get subscription plan details by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ]
+      },
+      "patch": {
+        "operationId": "SubscriptionsController_updatePlan",
+        "summary": "Update a subscription plan (Super Admin only)",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePlanDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/subscriptions/assign": {
+      "post": {
+        "operationId": "SubscriptionsController_assignSubscription",
+        "summary": "Assign or renew subscription for a client company (Super Admin only)",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignSubscriptionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/merchants": {
+      "post": {
+        "operationId": "MerchantsController_create",
+        "summary": "Onboard a new client company with subscription & initial Owner (Super Admin only)",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMerchantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Merchants"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "MerchantsController_findAll",
+        "summary": "List all client companies and their subscription health (Super Admin only)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Merchants"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/merchants/me": {
+      "get": {
+        "operationId": "MerchantsController_getMe",
+        "summary": "Get own company profile and active subscription details",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Merchants"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "MerchantsController_update",
+        "summary": "Update merchant corporate details (OWNER only)",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMerchantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Merchants"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/stores": {
+      "post": {
+        "operationId": "StoresController_create",
+        "summary": "Create a new store",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStoreDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Stores"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "StoresController_findAll",
+        "summary": "List all stores for merchant",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Stores"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/stores/{storeId}": {
+      "get": {
+        "operationId": "StoresController_findOne",
+        "summary": "Get a store by ID",
+        "parameters": [
+          {
+            "name": "storeId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Stores"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "StoresController_update",
+        "summary": "Update a store",
+        "parameters": [
+          {
+            "name": "storeId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Stores"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "StoresController_deactivate",
+        "summary": "Deactivate a store",
+        "parameters": [
+          {
+            "name": "storeId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Stores"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/products": {
+      "post": {
+        "operationId": "ProductsController_create",
+        "summary": "Create a product in merchant catalog",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProductDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "ProductsController_findAll",
+        "summary": "List all products for merchant (cached)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/products/{productId}": {
+      "get": {
+        "operationId": "ProductsController_findOne",
+        "summary": "Get a product by ID (cached)",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "ProductsController_update",
+        "summary": "Update a product (invalidates cache)",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProductDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "ProductsController_remove",
+        "summary": "Soft-delete a product",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/stores/{storeId}/inventory": {
+      "get": {
+        "operationId": "InventoryController_findAll",
+        "summary": "List all inventory for a store",
+        "parameters": [
+          {
+            "name": "storeId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inventory"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/stores/{storeId}/inventory/{productId}": {
+      "get": {
+        "operationId": "InventoryController_findOne",
+        "summary": "Get stock for a specific product in a store",
+        "parameters": [
+          {
+            "name": "storeId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inventory"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "InventoryController_update",
+        "summary": "Set stock quantity for a product in a store",
+        "parameters": [
+          {
+            "name": "storeId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateInventoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Inventory"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/stores/{storeId}/sales": {
+      "post": {
+        "operationId": "SalesController_create",
+        "summary": "Create a sale (requires Idempotency-Key header)",
+        "parameters": [
+          {
+            "name": "storeId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "Unique key to prevent duplicate sale creation (UUID recommended)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSaleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Sales"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "SalesController_findAll",
+        "summary": "List all sales for a store",
+        "parameters": [
+          {
+            "name": "storeId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Sales"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/stores/{storeId}/sales/{saleId}": {
+      "get": {
+        "operationId": "SalesController_findOne",
+        "summary": "Get a sale by ID with items and payment",
+        "parameters": [
+          {
+            "name": "storeId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "saleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Sales"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "operationId": "HealthController_check",
+        "summary": "Service health check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Health"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Multi-Tenant POS API",
+    "description": "POS Sales & Inventory API with multi-tenancy, pessimistic locking, and idempotency",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "cashier@store1.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "securepassword123"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "cashier@store1.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "securepassword123",
+            "minLength": 8
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "SUPER_ADMIN",
+              "OWNER",
+              "ADMIN",
+              "MANAGER",
+              "CASHIER"
+            ],
+            "example": "CASHIER"
+          },
+          "storeId": {
+            "type": "string",
+            "example": "uuid-of-store"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "role"
+        ]
+      },
+      "CreatePlanDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Growth Plan"
+          },
+          "slug": {
+            "type": "string",
+            "example": "growth-plan"
+          },
+          "description": {
+            "type": "string",
+            "example": "Best for expanding retail businesses with up to 5 stores"
+          },
+          "priceMinorUnits": {
+            "type": "number",
+            "example": 499900,
+            "description": "Price in minor units (paise/cents), e.g. 499900 = ₹4,999"
+          },
+          "currency": {
+            "type": "string",
+            "example": "INR",
+            "default": "INR"
+          },
+          "durationMonths": {
+            "type": "number",
+            "example": 6,
+            "description": "Validity duration in months"
+          },
+          "maxStores": {
+            "type": "number",
+            "example": 5,
+            "description": "Maximum stores allowed under this plan"
+          },
+          "maxUsers": {
+            "type": "number",
+            "example": 20,
+            "description": "Maximum staff users allowed under this plan"
+          },
+          "features": {
+            "example": [
+              "Multi-store inventory",
+              "Real-time sales analytics",
+              "Redis caching"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true,
+            "default": true
+          }
+        },
+        "required": [
+          "name",
+          "slug",
+          "priceMinorUnits",
+          "durationMonths",
+          "maxStores",
+          "maxUsers"
+        ]
+      },
+      "UpdatePlanDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Growth Plan"
+          },
+          "slug": {
+            "type": "string",
+            "example": "growth-plan"
+          },
+          "description": {
+            "type": "string",
+            "example": "Best for expanding retail businesses with up to 5 stores"
+          },
+          "priceMinorUnits": {
+            "type": "number",
+            "example": 499900,
+            "description": "Price in minor units (paise/cents), e.g. 499900 = ₹4,999"
+          },
+          "currency": {
+            "type": "string",
+            "example": "INR",
+            "default": "INR"
+          },
+          "durationMonths": {
+            "type": "number",
+            "example": 6,
+            "description": "Validity duration in months"
+          },
+          "maxStores": {
+            "type": "number",
+            "example": 5,
+            "description": "Maximum stores allowed under this plan"
+          },
+          "maxUsers": {
+            "type": "number",
+            "example": 20,
+            "description": "Maximum staff users allowed under this plan"
+          },
+          "features": {
+            "example": [
+              "Multi-store inventory",
+              "Real-time sales analytics",
+              "Redis caching"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true,
+            "default": true
+          }
+        }
+      },
+      "AssignSubscriptionDto": {
+        "type": "object",
+        "properties": {
+          "merchantId": {
+            "type": "string",
+            "example": "uuid-of-merchant"
+          },
+          "planId": {
+            "type": "string",
+            "example": "uuid-of-plan"
+          },
+          "planSlug": {
+            "type": "string",
+            "example": "growth",
+            "description": "Plan slug (alternative to planId)"
+          },
+          "durationMonths": {
+            "type": "number",
+            "example": 6,
+            "description": "Override duration in months (defaults to plan duration)"
+          },
+          "autoRenew": {
+            "type": "boolean",
+            "example": false,
+            "default": false
+          },
+          "notes": {
+            "type": "string",
+            "example": "Annual enterprise subscription agreement signed"
+          }
+        },
+        "required": [
+          "merchantId"
+        ]
+      },
+      "CreateMerchantDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Blue Tokai Coffee Roasters"
+          },
+          "companyName": {
+            "type": "string",
+            "example": "Blue Tokai Coffee Roasters"
+          },
+          "slug": {
+            "type": "string",
+            "example": "blue-tokai"
+          },
+          "planId": {
+            "type": "string",
+            "example": "uuid-of-subscription-plan"
+          },
+          "planSlug": {
+            "type": "string",
+            "example": "growth",
+            "description": "Plan slug (alternative to planId)"
+          },
+          "durationMonths": {
+            "type": "number",
+            "example": 6,
+            "description": "Duration in months (defaults to plan duration)"
+          },
+          "notes": {
+            "type": "string",
+            "example": "Initial setup notes"
+          },
+          "ownerEmail": {
+            "type": "string",
+            "example": "owner@bluetokai.com"
+          },
+          "ownerPassword": {
+            "type": "string",
+            "example": "OwnerSecurePass123",
+            "minLength": 8
+          }
+        },
+        "required": [
+          "slug",
+          "ownerEmail",
+          "ownerPassword"
+        ]
+      },
+      "UpdateMerchantDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "My Coffee Chain"
+          }
+        }
+      },
+      "CreateStoreDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Downtown Branch"
+          },
+          "address": {
+            "type": "string",
+            "example": "123 MG Road, Bengaluru"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "CreateProductDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Espresso"
+          },
+          "description": {
+            "type": "string",
+            "example": "Single shot espresso"
+          },
+          "priceMinorUnits": {
+            "type": "number",
+            "example": 18000,
+            "description": "Price in minor units (paise). 18000 = ₹180"
+          },
+          "currency": {
+            "type": "string",
+            "example": "INR"
+          },
+          "sku": {
+            "type": "string",
+            "example": "ESP-001"
+          }
+        },
+        "required": [
+          "name",
+          "priceMinorUnits",
+          "sku"
+        ]
+      },
+      "UpdateProductDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Espresso"
+          },
+          "description": {
+            "type": "string",
+            "example": "Single shot espresso"
+          },
+          "priceMinorUnits": {
+            "type": "number",
+            "example": 18000,
+            "description": "Price in minor units (paise). 18000 = ₹180"
+          },
+          "currency": {
+            "type": "string",
+            "example": "INR"
+          },
+          "sku": {
+            "type": "string",
+            "example": "ESP-001"
+          }
+        }
+      },
+      "UpdateInventoryDto": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "number",
+            "example": 50,
+            "description": "Stock quantity (>= 0)"
+          }
+        },
+        "required": [
+          "quantity"
+        ]
+      },
+      "SaleItemDto": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "example": "uuid-of-product"
+          },
+          "quantity": {
+            "type": "number",
+            "example": 2
+          }
+        },
+        "required": [
+          "productId",
+          "quantity"
+        ]
+      },
+      "CreateSaleDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SaleItemDto"
+            }
+          },
+          "paymentMetadata": {
+            "type": "object",
+            "description": "Payment metadata. Set simulateFailure: true to test failure path.",
+            "example": {
+              "simulateFailure": false
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      }
+    }
+  }
+}
