@@ -2,6 +2,8 @@ import { Controller, Post, Get, Body } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
+import { SetupSuperAdminDto } from './dto/setup-super-admin.dto';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { Public } from '../../common/decorators/public.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { JwtPayload } from '../../common/types/jwt-payload.type';
@@ -14,7 +16,7 @@ export class AuthController {
   @Public()
   @Post('super-admin/setup')
   @ApiOperation({ summary: 'One-time setup for SaaS platform super admin' })
-  async setupSuperAdmin(@Body() dto: any) {
+  async setupSuperAdmin(@Body() dto: SetupSuperAdminDto) {
     return { data: await this.authService.setupSuperAdmin(dto) };
   }
 
@@ -28,7 +30,7 @@ export class AuthController {
   @Public()
   @Post('refresh')
   @ApiOperation({ summary: 'Refresh access token' })
-  async refresh(@Body() body: { refreshToken: string }) {
+  async refresh(@Body() body: RefreshTokenDto) {
     return { data: await this.authService.refreshToken(body.refreshToken) };
   }
 

@@ -6,6 +6,16 @@
         "operationId": "AuthController_setupSuperAdmin",
         "summary": "One-time setup for SaaS platform super admin",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetupSuperAdminDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": ""
@@ -46,6 +56,16 @@
         "operationId": "AuthController_refresh",
         "summary": "Refresh access token",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenDto"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": ""
@@ -499,6 +519,16 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStoreDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": ""
@@ -938,6 +968,29 @@
       }
     },
     "schemas": {
+      "SetupSuperAdminDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "superadmin@posplatform.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "SuperAdminSecurePass123",
+            "minLength": 8
+          },
+          "fullName": {
+            "type": "string",
+            "example": "Platform Administrator"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "fullName"
+        ]
+      },
       "LoginDto": {
         "type": "object",
         "properties": {
@@ -953,6 +1006,19 @@
         "required": [
           "email",
           "password"
+        ]
+      },
+      "RefreshTokenDto": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "description": "Valid JWT refresh token previously issued on login or setup",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          }
+        },
+        "required": [
+          "refreshToken"
         ]
       },
       "CreateUserDto": {
@@ -1007,7 +1073,7 @@
           "priceMinorUnits": {
             "type": "number",
             "example": 499900,
-            "description": "Price in minor units (paise/cents), e.g. 499900 = ₹4,999"
+            "description": "Price in minor units (paise/cents), e.g. 499900 = \u20b94,999"
           },
           "currency": {
             "type": "string",
@@ -1073,7 +1139,7 @@
           "priceMinorUnits": {
             "type": "number",
             "example": 499900,
-            "description": "Price in minor units (paise/cents), e.g. 499900 = ₹4,999"
+            "description": "Price in minor units (paise/cents), e.g. 499900 = \u20b94,999"
           },
           "currency": {
             "type": "string",
@@ -1222,6 +1288,19 @@
           "name"
         ]
       },
+      "UpdateStoreDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Downtown Branch"
+          },
+          "address": {
+            "type": "string",
+            "example": "123 MG Road, Bengaluru"
+          }
+        }
+      },
       "CreateProductDto": {
         "type": "object",
         "properties": {
@@ -1236,7 +1315,7 @@
           "priceMinorUnits": {
             "type": "number",
             "example": 18000,
-            "description": "Price in minor units (paise). 18000 = ₹180"
+            "description": "Price in minor units (paise). 18000 = \u20b9180"
           },
           "currency": {
             "type": "string",
@@ -1267,7 +1346,7 @@
           "priceMinorUnits": {
             "type": "number",
             "example": 18000,
-            "description": "Price in minor units (paise). 18000 = ₹180"
+            "description": "Price in minor units (paise). 18000 = \u20b9180"
           },
           "currency": {
             "type": "string",

@@ -12,6 +12,7 @@ import {
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { StoresService } from './stores.service';
 import { CreateStoreDto } from './dto/create-store.dto';
+import { UpdateStoreDto } from './dto/update-store.dto';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { UserRole, JwtPayload } from '../../common/types/jwt-payload.type';
@@ -55,7 +56,7 @@ export class StoresController {
   async update(
     @CurrentUser() user: JwtPayload,
     @Param('storeId', ParseUUIDPipe) storeId: string,
-    @Body() dto: Partial<CreateStoreDto>,
+    @Body() dto: UpdateStoreDto,
   ) {
     return { data: await this.storesService.update(user, storeId, dto) };
   }
