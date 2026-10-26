@@ -33,4 +33,12 @@ export class CreateSaleDto {
   @IsOptional()
   @IsObject()
   paymentMetadata?: Record<string, unknown>;
+
+  @ApiPropertyOptional({
+    description: 'Payment details from POS terminal (e.g. method: CASH, amountMinorUnits)',
+    example: { method: 'CASH', amountMinorUnits: 44000 },
+  })
+  @IsOptional()
+  @IsObject()
+  payment?: Record<string, unknown>;
 }

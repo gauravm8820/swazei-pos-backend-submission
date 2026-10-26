@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, MinLength, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class SetupSuperAdminDto {
@@ -15,4 +15,9 @@ export class SetupSuperAdminDto {
   @IsString()
   @IsNotEmpty()
   fullName: string;
+
+  @ApiProperty({ example: 'super-admin-init-secret', required: false })
+  @IsOptional()
+  @IsString()
+  bootstrapKey?: string;
 }

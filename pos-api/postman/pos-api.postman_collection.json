@@ -65,6 +65,16 @@
       "key": "planGrowthId",
       "value": "33333333-3333-4000-8000-000000000002",
       "type": "string"
+    },
+    {
+      "key": "saleId",
+      "value": "99999999-9999-4000-8000-000000000001",
+      "type": "string"
+    },
+    {
+      "key": "refreshToken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "type": "string"
     }
   ],
   "item": [
@@ -288,6 +298,62 @@
             },
             "description": "Allows Super Admin to upgrade, downgrade, or renew any client company subscription."
           }
+        },
+        {
+          "name": "8. Get Subscription Plan by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/subscriptions/plans/{{planGrowthId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "subscriptions",
+                "plans",
+                "{{planGrowthId}}"
+              ]
+            },
+            "description": "Fetch public or super-admin details for a specific subscription plan by ID."
+          }
+        },
+        {
+          "name": "9. Update Subscription Plan (Super Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{superAdminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/subscriptions/plans/{{planGrowthId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "subscriptions",
+                "plans",
+                "{{planGrowthId}}"
+              ]
+            },
+            "description": "Update subscription plan pricing, limits, or features.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Growth Pro Tier\",\n  \"maxStores\": 6\n}"
+            }
+          }
         }
       ]
     },
@@ -465,6 +531,83 @@
               ]
             }
           }
+        },
+        {
+          "name": "3. Get Store Details by ID (Manager/Admin/Owner)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/stores/{{store1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stores",
+                "{{store1Id}}"
+              ]
+            },
+            "description": "Retrieve details for a specific store branch. Scoped to merchant by StoreAccessGuard."
+          }
+        },
+        {
+          "name": "4. Update Store Branch Details (Admin/Owner)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/stores/{{store1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stores",
+                "{{store1Id}}"
+              ]
+            },
+            "description": "Update name or physical address for a store branch.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Flagship MG Road Cafe\",\n  \"address\": \"123 MG Road, Floor 1, Bengaluru\"\n}"
+            }
+          }
+        },
+        {
+          "name": "5. Deactivate Store Branch (Owner Only)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/stores/{{store1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stores",
+                "{{store1Id}}"
+              ]
+            },
+            "description": "Soft-deactivates store branch (isActive = false) preserving past financial records."
+          }
         }
       ]
     },
@@ -578,6 +721,52 @@
               ]
             }
           }
+        },
+        {
+          "name": "5. Get Staff User by ID (Manager/Admin/Owner)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "{{userId}}"
+              ]
+            },
+            "description": "Retrieve staff user details by UUID."
+          }
+        },
+        {
+          "name": "6. Soft-Delete Staff User (Admin/Owner)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "{{userId}}"
+              ]
+            },
+            "description": "Soft-deletes staff user account (deletedAt = now())."
+          }
         }
       ]
     },
@@ -643,6 +832,48 @@
               ]
             }
           }
+        },
+        {
+          "name": "3. Refresh Access Token (Cashier/Any Role)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/refresh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "refresh"
+              ]
+            },
+            "description": "Exchange 7-day refresh token for a fresh 1-hour access token.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res && res.data && res.data.accessToken) {",
+                  "    pm.collectionVariables.set(\"cashierToken\", res.data.accessToken);",
+                  "    pm.environment.set(\"cashierToken\", res.data.accessToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
         }
       ]
     },
@@ -712,6 +943,83 @@
               ]
             }
           }
+        },
+        {
+          "name": "3. Get Product by ID (Cached in Redis)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{cashierToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "{{productA1Id}}"
+              ]
+            },
+            "description": "Retrieve single product details. Served from Redis cache if available."
+          }
+        },
+        {
+          "name": "4. Update Product (Invalidates Redis Cache)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "{{productA1Id}}"
+              ]
+            },
+            "description": "Update product details and automatically invalidate Redis cache for this merchant.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Espresso Double Shot\",\n  \"priceMinorUnits\": 22000\n}"
+            }
+          }
+        },
+        {
+          "name": "5. Soft-Delete Product from Catalog (Admin/Owner)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ownerToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "{{productA1Id}}"
+              ]
+            },
+            "description": "Soft-deletes product (deletedAt = now()). Preserves past invoice line items."
+          }
         }
       ]
     },
@@ -771,6 +1079,31 @@
                 "inventory"
               ]
             }
+          }
+        },
+        {
+          "name": "3. Get Stock for Specific Product in Store",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{cashierToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/stores/{{store1Id}}/inventory/{{productA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stores",
+                "{{store1Id}}",
+                "inventory",
+                "{{productA1Id}}"
+              ]
+            },
+            "description": "Fetch inventory stock quantity for a single product in this store branch."
           }
         }
       ]
@@ -869,6 +1202,31 @@
                 "sales"
               ]
             }
+          }
+        },
+        {
+          "name": "4. Get Sale Details by ID (Receipt with Items & Payment)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{cashierToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/stores/{{store1Id}}/sales/{{saleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stores",
+                "{{store1Id}}",
+                "sales",
+                "{{saleId}}"
+              ]
+            },
+            "description": "Fetch full sales receipt with snapshot unit prices and payment transaction ledger."
           }
         }
       ]
