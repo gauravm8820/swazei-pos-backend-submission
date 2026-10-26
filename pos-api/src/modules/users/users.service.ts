@@ -11,12 +11,15 @@ import { JwtPayload, UserRole } from '../../common/types/jwt-payload.type';
 import { CreateUserDto } from './dto/create-user.dto';
 
 import { SubscriptionsService } from '../subscriptions/subscriptions.service';
+import { DataSource } from 'typeorm';
+import { Store } from '../stores/entities/store.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     private readonly usersRepo: UsersRepository,
     private readonly subscriptionsService: SubscriptionsService,
+    private readonly dataSource: DataSource,
   ) {}
 
   private getMerchantId(user: JwtPayload): string {
@@ -36,6 +39,17 @@ export class UsersService {
       !dto.storeId
     ) {
       throw new BadRequestException(`${dto.role} must be assigned to a store`);
+    }
+
+    if (dto.storeId) {
+      const store = await this.dataSource.getRepository(Store).findOne({
+        where: { id: dto.storeId, merchantId: user.merchantId ?? undefined },
+      });
+      if (!store) {
+        throw new BadRequestException(
+          `Store with ID "${dto.storeId}" does not exist in this merchant`,
+        );
+      }
     }
 
     // Check subscription limits for merchant staff
